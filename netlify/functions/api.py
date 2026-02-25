@@ -7,4 +7,4 @@ from apps.api.main import app
 # We use redirects in netlify.toml so the client calls /api/*
 
 # The Mangum handler wraps the FastAPI application
-handler = Mangum(app, lifespan="off")
+handler = Mangum(app, lifespan="off", api_gateway_base_path="/.netlify/functions/api")
