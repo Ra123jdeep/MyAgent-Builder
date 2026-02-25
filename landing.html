@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyAgent Builder — AI-Ready SaaS Blueprints</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            background: #050818;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        body {
+            background:
+                radial-gradient(ellipse 100% 60% at 50% 0%, rgba(30, 60, 180, 0.25) 0%, transparent 65%),
+                radial-gradient(ellipse 80% 50% at 20% 50%, rgba(20, 40, 140, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 80% 70%, rgba(60, 30, 160, 0.12) 0%, transparent 60%),
+                #050818;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-image:
+                radial-gradient(1px 1px at 8% 12%, rgba(255, 255, 255, 0.7) 0%, transparent 100%),
+                radial-gradient(1px 1px at 22% 8%, rgba(255, 255, 255, 0.5) 0%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 38% 5%, rgba(255, 255, 255, 0.6) 0%, transparent 100%),
+                radial-gradient(1px 1px at 55% 15%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
+                radial-gradient(1px 1px at 72% 9%, rgba(255, 255, 255, 0.5) 0%, transparent 100%),
+                radial-gradient(1px 1px at 88% 18%, rgba(255, 255, 255, 0.6) 0%, transparent 100%),
+                radial-gradient(1px 1px at 15% 28%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
+                radial-gradient(1px 1px at 42% 35%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 65% 22%, rgba(255, 255, 255, 0.5) 0%, transparent 100%),
+                radial-gradient(1px 1px at 78% 42%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
+                radial-gradient(1px 1px at 5% 55%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
+                radial-gradient(1px 1px at 25% 62%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
+                radial-gradient(1px 1px at 48% 58%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
+                radial-gradient(1px 1px at 92% 65%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
+                radial-gradient(1px 1px at 35% 78%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
+                radial-gradient(1px 1px at 60% 82%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
+                radial-gradient(1px 1px at 82% 88%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
+                radial-gradient(1px 1px at 12% 90%, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
+        }
+
+        .wrap {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* NAV */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 28px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(5, 8, 24, 0.55);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-logo {
+            font-weight: 800;
+            font-size: .9rem;
+            letter-spacing: -.01em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-logo .ag {
+            color: #6c8ef5;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: .78rem;
+            text-decoration: none;
+            transition: color .2s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(90deg, #4f6ef5, #7c5cf5);
+            color: #fff;
+            font-size: .75rem;
+            font-weight: 600;
+            padding: 7px 16px;
+            border-radius: 7px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 0 14px rgba(79, 110, 245, 0.35);
+        }
+
+        /* HERO */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 36px;
+            align-items: center;
+            padding: 54px 28px 0;
+            max-width: 1060px;
+            margin: 0 auto;
+        }
+
+        .hero-label {
+            color: rgba(255, 255, 255, 0.38);
+            font-size: .7rem;
+            font-weight: 500;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.9rem, 3.2vw, 2.5rem);
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -.04em;
+            margin-bottom: 12px;
+        }
+
+        .hero h1 .grad {
+            background: linear-gradient(90deg, #6c8ef5 0%, #a78bfa 40%, #60a5fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub {
+            color: rgba(255, 255, 255, 0.45);
+            font-size: .82rem;
+            line-height: 1.65;
+            max-width: 330px;
+            margin-bottom: 22px;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(90deg, #4f6ef5, #7c5cf5);
+            color: #fff;
+            font-size: .8rem;
+            font-weight: 600;
+            padding: 10px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 0 26px rgba(79, 110, 245, 0.5);
+            transition: transform .2s;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-1px);
+        }
+
+        .hero-trust {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            color: rgba(255, 255, 255, 0.32);
+            font-size: .72rem;
+            margin-top: 6px;
+        }
+
+        .hero-trust span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .dg {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #22d3a5;
+        }
+
+        /* HERO UI CARD */
+        .ui-card {
+            background: rgba(10, 14, 40, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 8px 60px rgba(79, 110, 245, 0.18), 0 0 0 1px rgba(255, 255, 255, 0.04);
+        }
+
+        .ui-bar {
+            background: rgba(255, 255, 255, 0.04);
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .ub {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .ub:nth-child(1) {
+            background: #ff5f57;
+        }
+
+        .ub:nth-child(2) {
+            background: #febc2e;
+        }
+
+        .ub:nth-child(3) {
+            background: #28c840;
+        }
+
+        .ui-bar-title {
+            font-size: .68rem;
+            color: rgba(255, 255, 255, 0.35);
+            margin-left: 8px;
+        }
+
+        .ui-body {
+            padding: 16px;
+        }
+
+        .ui-proj-title {
+            font-size: .82rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .ui-proj-desc {
+            color: rgba(255, 255, 255, 0.38);
+            font-size: .7rem;
+            line-height: 1.55;
+            margin-bottom: 12px;
+        }
+
+        .ui-row {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .ui-in {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            padding: 7px 11px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: .7rem;
+            outline: none;
+        }
+
+        .ui-go {
+            background: linear-gradient(90deg, #4f6ef5, #7c5cf5);
+            color: #fff;
+            font-size: .7rem;
+            font-weight: 600;
+            padding: 7px 14px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .ui-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .ui-stat {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 8px;
+            padding: 10px 12px;
+        }
+
+        .ui-stat-v {
+            font-size: .88rem;
+            font-weight: 700;
+            color: #6c8ef5;
+        }
+
+        .ui-stat-l {
+            font-size: .62rem;
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: 2px;
+        }
+
+        /* GLOBE */
+        .globe-section {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+            margin-top: 0;
+        }
+
+        .globe {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -140px;
+            width: 520px;
+            height: 320px;
+            border-radius: 50%;
+            background:
+                radial-gradient(ellipse 60% 55% at 40% 32%, rgba(90, 120, 255, 0.55) 0%, rgba(50, 20, 160, 0.4) 45%, rgba(8, 4, 30, 0.9) 75%, transparent 100%);
+            box-shadow:
+                0 0 0 1px rgba(79, 110, 245, 0.25),
+                0 -20px 80px rgba(79, 110, 245, 0.45),
+                0 0 160px rgba(60, 30, 160, 0.3);
+        }
+
+        .globe::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: repeating-linear-gradient(0deg,
+                    transparent, transparent 10px,
+                    rgba(79, 110, 245, 0.04) 10px, rgba(79, 110, 245, 0.04) 11px);
+        }
+
+        .globe::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: repeating-linear-gradient(90deg,
+                    transparent, transparent 20px,
+                    rgba(79, 110, 245, 0.03) 20px, rgba(79, 110, 245, 0.03) 21px);
+        }
+
+        .globe-glow {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 80px;
+            background: radial-gradient(ellipse, rgba(79, 110, 245, 0.35) 0%, transparent 70%);
+        }
+
+        /* LOGOS */
+        .logos-bar {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 14px 28px;
+        }
+
+        .logos-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 44px;
+        }
+
+        .logo-p {
+            color: rgba(255, 255, 255, 0.38);
+            font-size: .74rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* STATS */
+        .stats-sec {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 36px 28px 40px;
+        }
+
+        .stats-head {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.38);
+            font-size: .73rem;
+            margin-bottom: 22px;
+            letter-spacing: .04em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .sc {
+            padding: 22px 18px;
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .sc:last-child {
+            border-right: none;
+        }
+
+        .sc-v {
+            font-size: 1.55rem;
+            font-weight: 800;
+            letter-spacing: -.03em;
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+
+        .sc-u {
+            color: #22d3a5;
+            font-size: .68rem;
+            font-weight: 600;
+        }
+
+        .sc-d {
+            color: #f87171;
+            font-size: .68rem;
+            font-weight: 600;
+        }
+
+        .sc-l {
+            color: rgba(255, 255, 255, 0.32);
+            font-size: .7rem;
+            margin-top: 2px;
+        }
+
+        .sc-sub {
+            color: rgba(255, 255, 255, 0.2);
+            font-size: .62rem;
+            margin-top: 1px;
+        }
+
+        .sc-bar {
+            background: rgba(255, 255, 255, 0.06);
+            height: 2px;
+            border-radius: 2px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .sc-bar-f {
+            height: 100%;
+            border-radius: 2px;
+            background: linear-gradient(90deg, #4f6ef5, #22d3a5);
+        }
+
+        /* FEATURES */
+        .feat-sec {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 52px 28px 28px;
+            text-align: center;
+        }
+
+        .sec-h {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 800;
+            letter-spacing: -.03em;
+            margin-bottom: 6px;
+        }
+
+        .sec-s {
+            color: rgba(255, 255, 255, 0.36);
+            font-size: .78rem;
+            margin-bottom: 38px;
+        }
+
+        .feat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            text-align: left;
+        }
+
+        .fc {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 18px 16px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color .25s, transform .25s;
+        }
+
+        .fc:hover {
+            border-color: rgba(79, 110, 245, 0.35);
+            transform: translateY(-3px);
+        }
+
+        .fc::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(79, 110, 245, 0.45), transparent);
+        }
+
+        .fi {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #4f6ef5, #7c5cf5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .78rem;
+            margin-bottom: 10px;
+        }
+
+        .fn {
+            font-size: .8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .fd {
+            color: rgba(255, 255, 255, 0.38);
+            font-size: .68rem;
+            line-height: 1.6;
+        }
+
+        .fbadge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(34, 211, 165, 0.1);
+            border: 1px solid rgba(34, 211, 165, 0.2);
+            color: #22d3a5;
+            font-size: .6rem;
+            font-weight: 600;
+            padding: 2px 7px;
+            border-radius: 100px;
+            margin-top: 9px;
+        }
+
+        .db {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #22d3a5;
+        }
+
+        .fprog {
+            margin-top: 8px;
+        }
+
+        .fpb {
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 2px;
+            height: 2.5px;
+            overflow: hidden;
+        }
+
+        .fpbf {
+            height: 100%;
+            border-radius: 2px;
+            background: linear-gradient(90deg, #4f6ef5, #60a5fa);
+        }
+
+        .fnum {
+            color: #60a5fa;
+            font-size: 1.05rem;
+            font-weight: 800;
+            margin-top: 8px;
+            line-height: 1;
+        }
+
+        .fnum-s {
+            color: rgba(255, 255, 255, 0.28);
+            font-size: .6rem;
+        }
+
+        .feat-cta {
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .bgo {
+            background: transparent;
+            border: 1px solid rgba(79, 110, 245, 0.45);
+            color: #7c8ef5;
+            font-size: .78rem;
+            font-weight: 600;
+            padding: 10px 36px;
+            border-radius: 100px;
+            cursor: pointer;
+            box-shadow: 0 0 18px rgba(79, 110, 245, 0.12);
+            transition: all .25s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .bgo:hover {
+            background: rgba(79, 110, 245, 0.1);
+            box-shadow: 0 0 30px rgba(79, 110, 245, 0.28);
+        }
+
+        /* COUNTDOWN */
+        .cd-sec {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 36px 28px 52px;
+        }
+
+        .cd-box {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 44px 32px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.02);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cd-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 10%, rgba(79, 110, 245, 0.7) 50%, transparent 90%);
+        }
+
+        .cd-box::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: radial-gradient(ellipse 70% 40% at 50% 110%, rgba(79, 110, 245, 0.08) 0%, transparent 70%);
+        }
+
+        .cd-h {
+            font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+            font-weight: 800;
+            letter-spacing: -.03em;
+            margin-bottom: 5px;
+        }
+
+        .cd-s {
+            color: rgba(255, 255, 255, 0.36);
+            font-size: .76rem;
+            margin-bottom: 34px;
+        }
+
+        .cd-units {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cdu {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 18px 24px;
+            min-width: 86px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .cdi {
+            font-size: .8rem;
+            opacity: .5;
+            margin-bottom: 5px;
+        }
+
+        .cdn {
+            font-size: 2.1rem;
+            font-weight: 800;
+            letter-spacing: -.04em;
+            line-height: 1;
+            background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.55) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cdl {
+            color: rgba(255, 255, 255, 0.32);
+            font-size: .62rem;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+        }
+
+        .cdl2 {
+            color: rgba(255, 255, 255, 0.18);
+            font-size: .56rem;
+            margin-top: 1px;
+        }
+
+        /* INTEGRATIONS */
+        .int-sec {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 16px 28px 70px;
+            text-align: center;
+        }
+
+        .int-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 34px;
+            text-align: left;
+        }
+
+        .ic {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 18px 16px;
+            transition: border-color .25s, transform .25s;
+        }
+
+        .ic:hover {
+            border-color: rgba(79, 110, 245, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .ii {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .82rem;
+            margin-bottom: 10px;
+        }
+
+        .in_ {
+            font-size: .8rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .id_ {
+            color: rgba(255, 255, 255, 0.35);
+            font-size: .68rem;
+            line-height: 1.55;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            text-align: center;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: .7rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .hero-left {
+            animation: fadeUp .6s ease both;
+        }
+
+        .hero-right {
+            animation: fadeUp .6s .1s ease both;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+
+        <!-- NAV -->
+        <nav>
+            <div style="display:flex;align-items:center;gap:32px">
+                <div class="nav-logo">⬡ <span class="ag">MyAgent Builder</span></div>
+                <div class="nav-links">
+                    <a href="#">Features</a>
+                    <a href="#">Architecture</a>
+                    <a href="#">Agents</a>
+                    <a href="#">Docs</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="#" style="color:rgba(255,255,255,0.45);font-size:.76rem;text-decoration:none">Log in</a>
+                <a href="#" class="nav-btn">Get Started Free</a>
+            </div>
+        </nav>
+
+        <!-- HERO -->
+        <div class="hero">
+            <div class="hero-left">
+                <div class="hero-label">AI-Native Development Platform</div>
+                <h1>Turn Ideas Into<br><span class="grad">Production-Ready</span><br>Blueprints</h1>
+                <p class="hero-sub">Let structured autonomous agents design your SaaS architecture, user flows, and
+                    Kanban tickets instantly.</p>
+                <a href="#" class="hero-cta">Get Started Free</a>
+                <div class="hero-trust">
+                    <span>
+                        <div class="dg"></div> 6100+ Blueprints
+                    </span>
+                    <span>✦ Cursor AI Ready</span>
+                </div>
+            </div>
+
+            <div class="hero-right">
+                <div class="ui-card">
+                    <div class="ui-bar">
+                        <div class="ub"></div>
+                        <div class="ub"></div>
+                        <div class="ub"></div>
+                        <span class="ui-bar-title">MyAgent Builder Workspace</span>
+                    </div>
+                    <div class="ui-body">
+                        <div class="ui-proj-title">Generate SaaS Blueprint</div>
+                        <div class="ui-proj-desc">Describe your product and our multi-agent swarm generates the complete
+                            architecture blueprint.</div>
+                        <div class="ui-row">
+                            <input class="ui-in" type="text" placeholder="Describe your SaaS idea…">
+                            <button class="ui-go">Generate</button>
+                        </div>
+                        <div class="ui-stats">
+                            <div class="ui-stat">
+                                <div class="ui-stat-v">6</div>
+                                <div class="ui-stat-l">Active Agents</div>
+                            </div>
+                            <div class="ui-stat">
+                                <div class="ui-stat-v" style="color:#22d3a5">124+</div>
+                                <div class="ui-stat-l">Kanban Tickets</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GLOBE -->
+        <div class="globe-section">
+            <div class="globe"></div>
+            <div class="globe-glow"></div>
+        </div>
+
+        <!-- LOGOS -->
+        <div class="logos-bar">
+            <div class="logos-inner">
+                <div class="logo-p">⊕ FastAPI</div>
+                <div class="logo-p">◈ Next.js</div>
+                <div class="logo-p">⬡ Cursor AI</div>
+                <div class="logo-p">❄ MongoDB</div>
+            </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats-sec">
+            <div class="stats-head">Powered by Next-Generation Technologies</div>
+            <div class="stats-grid">
+                <div class="sc">
+                    <div class="sc-v">1.2M+ <span class="sc-u">Tokens</span></div>
+                    <div class="sc-l">System Context</div>
+                    <div class="sc-sub">Llama-3.1-8b</div>
+                    <div class="sc-bar">
+                        <div class="sc-bar-f" style="width:78%"></div>
+                    </div>
+                </div>
+                <div class="sc">
+                    <div class="sc-v">6 <span class="sc-u">Agents</span></div>
+                    <div class="sc-l">Task Delegation</div>
+                    <div class="sc-sub">Parallel Processing</div>
+                    <div class="sc-bar">
+                        <div class="sc-bar-f" style="width:100%"></div>
+                    </div>
+                </div>
+                <div class="sc">
+                    <div class="sc-v">100% <span class="sc-u" style="font-size:.6rem">→</span></div>
+                    <div class="sc-l">Automation Ready</div>
+                    <div class="sc-sub">MCP Server Integrated</div>
+                    <div class="sc-bar">
+                        <div class="sc-bar-f" style="width:100%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FEATURES -->
+        <div class="feat-sec">
+            <div class="sec-h">Engineered for Structured Generation</div>
+            <div class="sec-s">A complete agentic toolkit designed for building the next generation of AI-native
+                applications.</div>
+            <div class="feat-grid">
+
+                <div class="fc">
+                    <div class="fi">🧠</div>
+                    <div class="fn">Multi-Agent Swarm</div>
+                    <div class="fd">Planner, Validator, Architect, Flow, and Ticket agents work in tandem to validate
+                        and design your app.</div>
+                    <div class="fbadge">
+                        <div class="db"></div> Live Active
+                    </div>
+                    <div style="margin-top:8px;font-size:.62rem;color:rgba(255,255,255,0.25)">Modular Python
+                        architecture</div>
+                </div>
+
+                <div class="fc">
+                    <div class="fi">⚙️</div>
+                    <div class="fn">Visual Architecture</div>
+                    <div class="fd">Interactive React Flow integration for seamless map visualizations of user flows and
+                        architecture.</div>
+                    <div style="margin-top:8px;font-size:.62rem;color:rgba(255,255,255,0.25)">Next.js 14 App Router
+                    </div>
+                    <div class="fprog">
+                        <div class="fpb">
+                            <div class="fpbf" style="width:92%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fc">
+                    <div class="fi">⚡</div>
+                    <div class="fn">MCP Automation</div>
+                    <div class="fd">Exposes tools to directly create files, generate components, and move Kanban
+                        tickets.</div>
+                    <div class="fnum">100%</div>
+                    <div class="fnum-s">Cursor Compatible</div>
+                    <div class="fprog" style="margin-top:6px">
+                        <div class="fpb">
+                            <div class="fpbf" style="width:100%"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="feat-cta">
+                <button class="bgo">See All Features ›</button>
+            </div>
+        </div>
+
+        <!-- COUNTDOWN -->
+        <div class="cd-sec">
+            <div class="cd-box">
+                <div class="cd-h">Agent Swarm Initialization Sequence</div>
+                <div class="cd-s">Prepare for the next evolution in automated continuous deployment and architecture
+                    design.</div>
+                <div class="cd-units">
+                    <div class="cdu">
+                        <div class="cdi">⏱</div>
+                        <div class="cdn" id="cd-d">04</div>
+                        <div class="cdl">Days</div>
+                        <div class="cdl2">from: v1.0.0</div>
+                    </div>
+                    <div class="cdu">
+                        <div class="cdi">🕐</div>
+                        <div class="cdn" id="cd-h">12</div>
+                        <div class="cdl">Hours</div>
+                        <div class="cdl2">Qty: 6 Agents</div>
+                    </div>
+                    <div class="cdu">
+                        <div class="cdi">⏳</div>
+                        <div class="cdn" id="cd-s">18</div>
+                        <div class="cdl">Sec</div>
+                        <div class="cdl2">Status: Ready</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INTEGRATIONS -->
+        <div class="int-sec">
+            <div class="sec-h">Connect with your Stack.</div>
+            <div class="sec-s">Seamlessly integrate with your favourite frameworks. Our blueprints are ready for modern
+                development.</div>
+            <div class="int-grid">
+                <div class="ic">
+                    <div class="ii">🎯</div>
+                    <div class="in_">Cursor AI</div>
+                    <div class="id_">Automate component generation and codebase editing instantly using our native MCP
+                        server integration.</div>
+                </div>
+                <div class="ic">
+                    <div class="ii">⚡</div>
+                    <div class="in_">Next.js</div>
+                    <div class="id_">Export highly-optimized, modern React components utilizing the App Router and
+                        Tailwind CSS.</div>
+                </div>
+                <div class="ic">
+                    <div class="ii">🐍</div>
+                    <div class="in_">FastAPI</div>
+                    <div class="id_">Generate robust asynchronous Python backends seamlessly validated by strict
+                        Pydantic schemas.</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>© 2026 MyAgent Builder. · Built for the future of AI-native SaaS.</footer>
+    </div>
+
+    <script>
+        const t = new Date(Date.now() + (4 * 86400 + 12 * 3600 + 18 * 60) * 1000);
+        function tick() {
+            const d = Math.max(0, t - Date.now());
+            document.getElementById('cd-d').textContent = String(Math.floor(d / 86400000)).padStart(2, '0');
+            document.getElementById('cd-h').textContent = String(Math.floor(d % 86400000 / 3600000)).padStart(2, '0');
+            document.getElementById('cd-s').textContent = String(Math.floor(d % 3600000 / 60000)).padStart(2, '0');
+        }
+        tick(); setInterval(tick, 1000);
+    </script>
+</body>
+
+</html>
