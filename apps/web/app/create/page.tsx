@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { ProjectInput } from "@/components/wizard/ProjectInput";
 import { GenerationLoader } from "@/components/wizard/GenerationLoader";
 import { BlueprintView } from "@/components/blueprint/BlueprintView";
 import { useProject } from "@/context/ProjectContext";
 import { useSearchParams } from "next/navigation";
 
-export default function WizardPage() {
+function WizardContent() {
     const searchParams = useSearchParams();
     const isViewingInput = searchParams.get("view") === "input";
 
@@ -33,4 +33,16 @@ export default function WizardPage() {
     }
 
     return <ProjectInput onStart={handleStart} loading={internalLoading} />;
+}
+
+export default function WizardPage() {
+    return (
+        <Suspense fallback={
+            <div className="flex h-[50vh] flex-col items-center justify-center text-slate-400">
+                <p>Loading...</p>
+            </div>
+        }>
+            <WizardContent />
+        </Suspense>
+    );
 }
