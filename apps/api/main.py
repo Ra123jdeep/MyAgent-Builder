@@ -46,7 +46,7 @@ async def health() -> dict:
 
 @app.on_event("startup")
 async def startup_db_client():
-    print("Skipping MongoDB connection check, using fallback to local JSON DB.")
+    pass
 
 
 app.include_router(agent_plan.router, prefix="/agent", tags=["planner"])
