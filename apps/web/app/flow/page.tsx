@@ -19,7 +19,7 @@ export default function FlowPage() {
 
     return (
         <div className="w-full h-full rounded-3xl overflow-hidden border border-[#1e1e35] shadow-2xl relative">
-            <UserFlow backendNodes={user_flow_nodes} backendEdges={user_flow_edges} />
+            <UserFlow backendNodes={user_flow_nodes || []} backendEdges={user_flow_edges || []} />
         </div>
     );
 }
