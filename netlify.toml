@@ -1,5 +1,9 @@
 [build]
   command = "cd apps/web && npm install && npm run build"
+  publish = "apps/web/.next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
 
 [functions]
   directory = "netlify/functions"
@@ -9,3 +13,4 @@
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
   status = 200
+  force = true
