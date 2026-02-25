@@ -1,23 +1,11 @@
 [build]
   command = "cd apps/web && npm install && npm run build"
-  publish = "apps/web/.next"
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
 
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
-# Rewrite all API calls to the serverless function
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
   status = 200
-
-# Catch-all for Next.js routing (sometimes handled by plugin, but good safe fallback)
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  condition = {Role = ["admin"]} # just a hack to ensure the plugin takes priority if it wants
